@@ -13,11 +13,11 @@
 <div class="container">
  
  
-  <h2>Consulta de Instituciones Educativas de Ecuador</h2>
+  <h2>Consulta de Instituciones </h2>
   <form  action="" method="post" role="form">
     {{ form.csrf }}
     <div class="form-group">
-      <label for="primero">Ingres nombre o inicial del cantón:</label>
+      <label for="primero">Ingrese nombre de cantón:</label>
       <input type="text" class="form-control" id="primero" name="primero" placeholder="Nombres...">
       <br>
     </div>
@@ -33,20 +33,22 @@
   <div>
       <table class="table"> 
         <tr>
+          <th>Nombre</th>
           <th>Provincia</th>
-          <th>Cantón</th>
-          <th>Parroquia</th>
-          <th>Masculino</th>
-          <th>Femenino</th>
+          <th>Institucion</th>
+          <th>Etnia</th>
+          <th>NumeroEstudiantes</th>
+          <th>Numero de Profesores</th>
         </tr>
 
         {% for d in data %}
         <tr>
+          <td>{{d['Nombre-Institucion'].decode('utf-8')}}</td>
           <td>{{d['Provincia'].decode('utf-8')}}</td>
-          <td>{{d['Canton'].decode('utf-8')}}</td>
-          <td>{{d['Parroquia'].decode('utf-8')}}</td>
-          <td>{{d['Masculino']}}</td>
-          <td>{{d['Femenino']}}</td>
+          <td>{{d['Tipo-Educacion'].decode('utf-8')}}</td>
+          <td>{{d['Etnia']}}</td>
+          <td>{{d['Numero-estudiantes']}}</td>
+          <td>{{d['Numero-docentes']}}</td>
         </tr>
 
         {% endfor %}

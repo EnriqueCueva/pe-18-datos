@@ -1,4 +1,3 @@
-
 """
 Ejemplo usado en el flisol2018 en Loja / autor @reroes
 """
@@ -9,9 +8,9 @@ import pandas as pd
 import json
 
 import sqlite3
-# app = Flask(__name__)
-app = Flask(__name__, template_folder='templates')  # still relative to module
-app.config.from_object(__name__)
+# app = Flask(_name_)
+app = Flask(_name_, template_folder='templates')  # still relative to module
+app.config.from_object(_name_)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
 
@@ -31,22 +30,22 @@ def registros():
     if request.method == 'POST':
         primero = request.form['primero']
         primero = primero.upper()
-        print "%s" % (primero)
+        print ("%s" % (primero))
  
         if form.validate():
-            connection = sqlite3.connect("../notebooks/instituciones.db")
+            connection = sqlite3.connect("../../notebooks/clase9ejercicios/instituciones.db")
             connection.text_factory = str
             df = pd.read_sql_query("SELECT * from educativas", connection)
-            data = df[(df['Canton'].str.contains(primero))][['Provincia','Canton','Parroquia', 'Masculino', 'Femenino']]
+            data = df[(df['Codigo-AMIE'].str.contains(primero))][['Nombre-Institucion','Provincia','Tipo-Educacion', 'Etnia', 'Numero-estudiantes','Numero-docentes']]
             tabla = data.to_html()
             data = data.to_dict(orient="records")
             numero = len(data)
-            print "%s ---- numero" % numero
+            print ("%s ---- numero" % numero)
         else:
             flash('Error')
  
     return render_template('registros.html', form=form, data=data, tabla=tabla, numero=numero)
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(host='0.0.0.0')
