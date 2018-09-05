@@ -2,7 +2,7 @@
 tomado de: https://gist.github.com/leplatrem/1277655
 """
 import simplejson
-from flask import Flask, g, request
+from flask import Flask, g, request,render_template
 from couchdb.design import ViewDefinition
 import flaskext.couchdb
 
@@ -21,22 +21,27 @@ Retrieve docs
 @app.route("/<author_id>/docs")
 def docs(author_id):
     docs = []
-    print "--------------------"
-    # print docs_by_author(g.couch)
+    #print ("--------------------")
+    #print (docs_by_author(g.couch))
+    #print ("--------------------")
     # for row in docs_by_author(g.couch)[author_id]:
     for row in docs_by_author(g.couch):
-	print row.value['anio_mad'], author_id, row.value['anio_mad'] == author_id
-	print row.value['anio_mad'].__class__, author_id.__class__
-	try:
-	    author_id = int(author_id)
-		
-	    if row.value['anio_mad'] == author_id:        
-	        docs.append(row.value)
-                print row.value
-	except:
-	    pass
-    return simplejson.dumps(docs)
+        print ("--------------------")
+        print(row.value)
+        print ("--------------------")
+    	#print (row.value['anio_mad'], author_id, row.value['anio_mad'] == author_id)
+    	#print (row.value['anio_mad'].__class__, author_id.__class__)
+        try:
+            author_id = int(author_id)
+            if row.value['anio_mad'] == author_id:
+                docs.append(row.value)
+                print (row.value)
 
+        except:
+            pass
+    #return simplejson.dumps(docs)
+               
+    return render_template('registros.html', data=docs)
 
 """
 Flask main
@@ -44,7 +49,7 @@ Flask main
 if __name__ == "__main__":
     app.config.update(
         DEBUG = True,
-        COUCHDB_SERVER = 'http://admin:11112222@localhost:5984/',
+        COUCHDB_SERVER = 'http://kike:dridking5@localhost:5984/',
         COUCHDB_DATABASE = 'nacimientos'
     )
     manager = flaskext.couchdb.CouchDBManager()
